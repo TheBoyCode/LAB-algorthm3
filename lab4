@@ -1,0 +1,72 @@
+// Alg Lab 4.cpp: определяет точку входа для консольного приложения.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include <list>
+#include <iterator>
+#include <ostream>
+using namespace std;
+class Hush
+{
+public:
+	int hush;
+	list<string> sPtr[5];
+	int hushing(std::string str)
+	{
+		hush = 0;
+		for (int i = 0; i < str.length(); i++)
+		{
+			hush += str[i];
+		}
+		return (hush%5);
+	}
+	Hush( )
+	{
+		string s = "0";
+		for (int i = 0; i < 5; i++)
+		{
+			sPtr[i].push_back(s);
+		}
+	}
+	void push(std::string s)
+	{
+		
+			if (sPtr[hushing(s)].back() == "0")
+			{
+				sPtr[hushing(s)].pop_back();
+				sPtr[hushing(s)].push_back(s);
+			}
+			else 
+			{
+				sPtr[hushing(s)].push_back(s);
+			}
+		
+	}
+	void Print()
+	{
+		system("cls");
+		for (int i = 0; i < 5; i++)
+		{
+			cout << "[" << i << "] ";
+			if(sPtr[i].back()!="0")
+			copy(sPtr[i].begin(), sPtr[i].end(), ostream_iterator<string>(cout, " "));
+			cout << endl;
+		}
+	}
+};
+
+int main()
+{
+	Hush h;
+	string s;
+	for (int i = 0; i < 15; i++)
+	{
+		cin >> s;
+		h.push(s);
+	}
+	h.Print();
+    return 0;
+}
+
